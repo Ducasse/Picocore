@@ -1,3 +1,23 @@
+"
+I'm the structure of an object (in fact any element, even classes) manipulated in a pico world. 
+I'm implemented as a subclass of Array, but this is an implementation details.
+
+As a class I define all the elementary operations that we can execute on the structure (instance of me) that represent pico objects. In a C implementation of PicoCore all such elementary operations would be coded as function on a data structure representing an object.
+
+The methods defined in my class are not accessible by default. 
+My methods are in fact executed by the code interpreter.
+They have to be called from a method (in the methods defined in codeRepository subclasses).
+
+For example in the method below, the message valueOfInstanceVariable: is not defined in the class `PicoObjectCode` but in PicoBlop. This is during the interpretation of the method `introspectReadVariable:` that the method is found and executed. 
+
+```
+PicoObjectCode >> introspectReadVariable: aSymbol
+
+	^ self valueOfInstanceVariable: aSymbol
+
+```
+
+"
 Class {
 	#name : #PicoBlop,
 	#superclass : #Array,
@@ -446,7 +466,7 @@ PicoBlop >> setValueOfInstanceVariable: aSymbol to: value [
 { #category : #'instance variables' }
 PicoBlop >> valueOfInstanceVariable: aSymbol [ 
 	"Return the value of the instance variable, aSymbol, of the receiver."
-	
-	^self at: (self offsetFromObjectOfInstanceVariable: aSymbol)
+
+	^ self at: (self offsetFromObjectOfInstanceVariable: aSymbol)
 	
 ]
