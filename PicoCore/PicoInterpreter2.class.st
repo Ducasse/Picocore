@@ -1,3 +1,21 @@
+"
+I'm a special Pharo interpreter. 
+I bind self to `PicoBlop` instances and my lookup in not using Pharo classes but 
+PicoBlop instances representing classes. 
+
+## Link between picoBlop instances representing classes and code repo classes
+
+Each `PicoBlop` instances representing a class is linked to a Pharo class (ending by Code) that acts as a code repository. 
+For example the class `PicoPointCode` is holding methods of the method dictionary of the picoBlop class `PicoPoint`. `PicoPoint` class is NOT a Pharo class it is a picoCore instance (of picoCore metaclass). 
+
+## About method lookup. 
+As a special interpreter I interpret explicit message sends, i.e., 
+message whose selector are `#send:` or `#send:withArguments:` by doing a lookup of the method in the corresponding code repository class (`PicoPointCode`).
+So the lookup looks for the methods inside CodeRepository classes using the inheritance structure held in PicoBlop instances. It means that the navigation to superclasses use the picoblop instance but use 
+the Pharo classes to get the actual AST of the method.
+
+
+"
 Class {
 	#name : #PicoInterpreter2,
 	#superclass : #CHInterpreter,

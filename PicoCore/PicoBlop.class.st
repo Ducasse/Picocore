@@ -2,13 +2,14 @@
 I'm the structure of an object (in fact any element, even classes) manipulated in a pico world. 
 I'm implemented as a subclass of Array, but this is an implementation details.
 
-As a class I define all the elementary operations that we can execute on the structure (instance of me) that represent pico objects. In a C implementation of PicoCore all such elementary operations would be coded as function on a data structure representing an object.
+As a class I define all the elementary operations that we can execute on the structure (instance of me) that represent pico objects. In a C-implementation of PicoCore all such elementary operations would be coded as function on a data structure representing an object.
 
-The methods defined in my class are not accessible by default. 
-My methods are in fact executed by the code interpreter.
-They have to be called from a method (in the methods defined in codeRepository subclasses).
+My methods are often executed by the code interpreter in implicit sends (Pharo messages) and not explicit picoCore sends (e.g. using message send: #aMethodSelector).
+My methods are often called from a method defined in codeRepository subclasses.
 
-For example in the method below, the message valueOfInstanceVariable: is not defined in the class `PicoObjectCode` but in PicoBlop. This is during the interpretation of the method `introspectReadVariable:` that the method is found and executed. 
+
+For example in the method below, the message `valueOfInstanceVariable:` is not defined in the class `PicoObjectCode` but in `PicoBlop`. This is during the interpretation of the method `introspectReadVariable:` that the method is found and executed. 
+This is normal since the method `introspectReadVariable:` is interpreted with picoBlop instances as receiver and arguments.
 
 ```
 PicoObjectCode >> introspectReadVariable: aSymbol
@@ -16,6 +17,10 @@ PicoObjectCode >> introspectReadVariable: aSymbol
 	^ self valueOfInstanceVariable: aSymbol
 
 ```
+
+The methods in PicoObjectCode are only executed as when they are used in an explicit message send (e.g., send: ).
+
+
 
 "
 Class {
