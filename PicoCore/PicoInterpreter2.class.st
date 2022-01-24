@@ -1,7 +1,7 @@
 "
 I'm a special Pharo interpreter. 
-I bind self to `PicoBlop` instances and my lookup in not using Pharo classes but 
-PicoBlop instances representing classes. 
+I bind self to `PicoBlop` instances and my lookup in not using Pharo classes directly but 
+`PicoBlop` instances representing classes. In addition for each picoBlop classes I know that they are linked to a Pharo class subclass of `PicoCodeRepository`. 
 
 ## Link between picoBlop instances representing classes and code repo classes
 
